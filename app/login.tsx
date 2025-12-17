@@ -1,20 +1,43 @@
+import Button from "@/src/components/Button";
+import Input from "@/src/components/Input";
+import { useAuth } from "@/src/contexts/AuthProvider";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import {
+	Alert,
 	KeyboardAvoidingView,
-	Platform,
 	ScrollView,
 	Text,
 	TextInput,
-	TouchableOpacity,
 	View,
 } from "react-native";
 
 export default function Login() {
+	const [email, setEmail] = useState("");
+	const [password, setPassWord] = useState("");
+	const { login, loading, setLoading } = useAuth();
+	const router = useRouter();
+	async function handleLogin() {
+		if (!email.trim() || !password.trim()) {
+			Alert.alert("Atenção!", "Preencha todos os campos");
+			return;
+		}
+		try {
+			setLoading(true);
+			login(email, password);
+			router.replace("/(authenticated)/dashboard");
+		} catch (error) {
+			console.log(error);
+			Alert.alert("Atenção!", "Erro ao fazer login");
+		}
+	}
 	return (
 		<KeyboardAvoidingView
 			className="bg-[#1d1d2e]  flex-1  "
-			behavior={Platform.OS === "ios" ? "padding" : "height"}
+			behavior={"padding"}
 		>
 			<ScrollView
+				keyboardShouldPersistTaps="handled"
 				contentContainerStyle={{
 					flexGrow: 1,
 					justifyContent: "center",
@@ -23,24 +46,29 @@ export default function Login() {
 					gap: 16,
 				}}
 			>
-				<View className="justify-center px-2 gap-4 items-center flex flex-1 w-full">
+				<View className="justify-center px-2 gap-4 items-center flex   w-full">
 					<Text className="text-4xl flex italic font-bold  text-center w-4/5  text-white  ">
 						Pizzaria <Text className="text-red-600">Gomes</Text>
 					</Text>
 					<TextInput
-						className="bg-[#101026] w-4/5 px-5  border-gray-400 border text-white  rounded-lg h-14"
-						placeholderTextColor={"#e8e8e8"}
+						className="bg-[#101026] w-4/5 px-5  border-zinc-700/70 border text-white  rounded-lg h-14"
+						placeholderTextColor={"#f0f0f0aa"}
 						placeholder="Digite seu email"
+						value={email}
+						onChangeText={setEmail}
 					/>
-					<TextInput
+					<Input
 						secureTextEntry
-						className="bg-[#101026] w-4/5 px-5  border-gray-400 border text-white  rounded-lg h-14"
-						placeholderTextColor={"#e8e8e8"}
-						placeholder="Digite seu senha"
+						placeholder="Digite sua senha"
+						value={password}
+						onChangeText={setPassWord}
 					/>
-					<TouchableOpacity className="w-4/5 h-14  flex justify-center items-center bg-[#3fffa3] rounded-lg ">
-						<Text className="font-medium text-xl">Acessar</Text>
-					</TouchableOpacity>
+					<Button
+						title="Acessar"
+						onPress={handleLogin}
+						disabled={loading}
+						loading={loading}
+					/>
 				</View>
 			</ScrollView>
 		</KeyboardAvoidingView>
