@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { UserProps } from "../@types";
 
 interface ContextProps {
 	signed: boolean;
@@ -7,12 +8,6 @@ interface ContextProps {
 	loading: boolean;
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 	logOut: () => Promise<void>;
-}
-
-export interface UserProps {
-	email: string;
-	id: string;
-	name: string;
 }
 
 export const AuthContext = createContext({} as ContextProps);

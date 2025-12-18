@@ -17,6 +17,7 @@ export default function AuthenticatedLayout() {
 			<StatusBar style="light" />
 			<Stack screenOptions={{ headerShown: false }}>
 				<Stack.Screen name="dashboard" />
+				<Stack.Screen name="order" />
 			</Stack>
 		</>
 	);

@@ -1,4 +1,4 @@
 export const API_CONFIG = {
-	BASE_URL: process.env.LOCALHOST,
+	BASE_URL: "http://192.168.12.105:3333",
 	TIMEOUT: 12000,
 };

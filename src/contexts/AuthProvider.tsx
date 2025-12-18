@@ -1,17 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ReactNode, useContext, useEffect, useState } from "react";
+import { LoginResponse, UserProps } from "../@types";
 import { api } from "../services/api";
-import { AuthContext, UserProps } from "./AuthContext";
+import { AuthContext } from "./AuthContext";
 
 interface AuthProviderProps {
 	children: ReactNode;
-}
-
-interface LoginResponse {
-	id: string;
-	email: string;
-	token: string;
-	name: string;
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
