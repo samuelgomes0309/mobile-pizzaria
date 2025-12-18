@@ -6,6 +6,7 @@ interface ContextProps {
 	login: (email: string, password: string) => void;
 	loading: boolean;
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	logOut: () => Promise<void>;
 }
 
 export interface UserProps {

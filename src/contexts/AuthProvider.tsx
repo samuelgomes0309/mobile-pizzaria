@@ -1,5 +1,5 @@
-import AsynStorage from "@react-native-async-storage/async-storage";
-import { ReactNode, useContext, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { AuthContext, UserProps } from "./AuthContext";
 
@@ -16,7 +16,27 @@ interface LoginResponse {
 
 export function AuthProvider({ children }: AuthProviderProps) {
 	const [user, setUser] = useState<UserProps | null>(null);
-	const [loading, setLoading] = useState<boolean>(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	useEffect(() => {
+		async function loadData() {
+			await loadStorage();
+		}
+		loadData();
+	}, []);
+	async function loadStorage() {
+		try {
+			setLoading(true);
+			const storageToken = await AsyncStorage.getItem("@token:pizzaria");
+			const storageUser = await AsyncStorage.getItem("@user:pizzaria");
+			if (storageToken && storageUser) {
+				setUser(JSON.parse(storageUser));
+			}
+		} catch (error) {
+			console.log(error);
+		} finally {
+			setLoading(false);
+		}
+	}
 	async function login(email: string, password: string) {
 		try {
 			const response = await api.post<LoginResponse>("/login", {
@@ -24,8 +44,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 				password,
 			});
 			const { token, ...userData } = response.data;
-			AsynStorage.setItem("@token:pizzaria", token);
-			AsynStorage.setItem("@user:pizzaria", JSON.stringify(userData));
+			await AsyncStorage.setItem("@token:pizzaria", token);
+			await AsyncStorage.setItem("@user:pizzaria", JSON.stringify(userData));
 			setUser(userData);
 		} catch (error) {
 			console.log(error);
@@ -33,9 +53,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 			setLoading(false);
 		}
 	}
+	async function logOut() {
+		await AsyncStorage.removeItem("@token:pizzaria");
+		await AsyncStorage.removeItem("@user:pizzaria");
+		setUser(null);
+	}
 	return (
 		<AuthContext.Provider
-			value={{ signed: !!user, user, login, loading, setLoading }}
+			value={{ signed: !!user, user, login, loading, setLoading, logOut }}
 		>
 			{children}
 		</AuthContext.Provider>

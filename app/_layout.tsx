@@ -6,7 +6,7 @@ export default function RootLayout() {
 	return (
 		<AuthProvider>
 			<StatusBar style="light" />
-			<Stack screenOptions={{ headerShown: false }} initialRouteName="login">
+			<Stack screenOptions={{ headerShown: false }}>
 				<Stack.Screen name="index" />
 				<Stack.Screen name="login" />
 				<Stack.Screen name="(authenticated)" />
