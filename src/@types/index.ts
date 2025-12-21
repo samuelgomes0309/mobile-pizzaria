@@ -3,7 +3,10 @@ export interface UserProps {
 	id: string;
 	name: string;
 }
-
+export interface CategoryProps {
+	id: string;
+	name: string;
+}
 export interface LoginResponse {
 	id: string;
 	email: string;
@@ -35,4 +38,16 @@ export interface OrderItemProps {
 	created_at: string;
 	updated_at: string;
 	product: ProductProps;
+}
+export interface DetailOrderProps extends OrderProps {
+	items: OrderItemProps[];
+}
+
+export interface ItemProps {
+	id: string;
+	amount: number;
+	orderId: string;
+	productId: string;
+	created_at: string;
+	updated_at: string;
 }

@@ -19,7 +19,7 @@ export default function Button({
 }: ButtonProps) {
 	return (
 		<TouchableOpacity
-			className="w-4/5 h-14  flex justify-center items-center bg-[#3fffa3] rounded-lg "
+			className="w-full h-14  flex justify-center items-center bg-[#3fffa3] rounded-lg disabled:opacity-40"
 			disabled={disabled}
 			{...rest}
 		>
