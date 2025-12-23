@@ -1,50 +1,106 @@
-# Welcome to your Expo app 👋
+mobile-pizzaria 
+🍕 Visão Geral do Projeto
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+O mobile-pizzaria é um aplicativo móvel desenvolvido para facilitar o processo de realização de pedidos em uma pizzaria. Construído com uma stack moderna para desenvolvimento cross-platform, o projeto utiliza Expo e React Native para a interface, garantindo uma experiência nativa em dispositivos Android e iOS. A arquitetura do código é baseada em TypeScript, promovendo maior segurança e manutenibilidade.
 
-## Get started
+✨ Tecnologias Utilizadas
 
-1. Install dependencies
+Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-   ```bash
-   npm install
-   ```
+| Categoria | Tecnologia | Descrição |
+| --- | --- | --- |
+| **Framework** | Expo | Plataforma para desenvolvimento universal de aplicativos React Native. |
+| **Linguagem** | TypeScript | Superset do JavaScript que adiciona tipagem estática, melhorando a manutenibilidade e a qualidade do código. |
+| **Estilização** | NativeWind / Tailwind CSS | Framework CSS utility-first para estilização rápida e responsiva, adaptado para React Native. |
+| **Roteamento** | Expo Router | Roteamento baseado em arquivos para gerenciamento de navegação e telas na aplicação. |
+| **Comunicação** | Axios | Cliente HTTP baseado em Promises para requisições assíncronas à API. |
+| **Gerenciamento de Estado** | Context API / Hooks | Utilização de Contextos e Hooks customizados para gestão de estado global (e.g., pedidos e autenticação). |
 
-2. Start the app
 
-   ```bash
-   npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+⚙️ Funcionalidades Principais
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+O sistema oferece as seguintes funcionalidades:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+•
+Autenticação de Usuário: Tela de login para acesso à área restrita do aplicativo.
 
-## Get a fresh project
+•
+Visualização de Produtos: Listagem e detalhamento de categorias e produtos (pizzas, bebidas, etc.).
 
-When you're ready, run:
+•
+Gestão de Pedidos: Funcionalidade para criar, adicionar itens e enviar pedidos para a pizzaria.
 
-```bash
-npm run reset-project
-```
+•
+Rotas Protegidas: Separação de rotas públicas e privadas (autenticadas) utilizando o Expo Router.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+🛠️ Instalação e Configuração
 
-## Learn more
+Para rodar o projeto localmente, siga os passos abaixo:
 
-To learn more about developing your project with Expo, look at the following resources:
+Pré-requisitos
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Certifique-se de ter o Node.js (versão 18+) e o yarn (ou npm/pnpm) instalados em sua máquina. Além disso, é necessário ter o Expo Go instalado em seu dispositivo móvel ou um emulador/simulador configurado.
 
-## Join the community
+1. Clonar o Repositório
 
-Join our community of developers creating universal apps.
+Bash
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+git clone https://github.com/samuelgomes0309/mobile-pizzaria.git
+cd mobile-pizzaria
+
+
+2. Instalar Dependências
+
+Utilize o gerenciador de pacotes de sua preferência:
+
+Bash
+
+
+# Usando yarn (recomendado pelo lock file )
+yarn install
+
+# Ou usando npm
+npm install
+
+# Ou usando pnpm
+pnpm install
+
+
+3. Configuração de Variáveis de Ambiente (API)
+
+O projeto depende de uma API de backend para autenticação e dados de produtos/pedidos.
+
+Crie um arquivo .env na raiz do projeto e adicione a URL base da sua API:
+
+Plain Text
+
+
+# Exemplo: URL da API de backend
+EXPO_PUBLIC_API_URL="SUA_URL_DA_API_AQUI"
+
+
+4. Rodar a Aplicação
+
+Inicie o servidor de desenvolvimento do Expo:
+
+Bash
+
+
+npx expo start
+
+
+Após a execução, um QR Code será exibido no terminal. Você pode:
+
+•
+Escanear o QR Code com o aplicativo Expo Go no seu celular (iOS ou Android).
+
+•
+Pressionar a para abrir no Android Emulator.
+
+•
+Pressionar i para abrir no iOS Simulator.
+
+A aplicação estará acessível no seu dispositivo ou emulador.
+
