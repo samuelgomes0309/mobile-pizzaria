@@ -42,7 +42,7 @@ Pré-requisitos
 
 Certifique-se de ter o Node.js (versão 18+) e o yarn (ou npm/pnpm) instalados em sua máquina. Além disso, é necessário ter o Expo Go instalado em seu dispositivo móvel ou um emulador/simulador configurado.
 
-1. Clonar o Repositório
+Clonar o Repositório
 
 Bash
 
@@ -68,20 +68,7 @@ npm install
 pnpm install
 
 
-3. Configuração de Variáveis de Ambiente (API)
-
-O projeto depende de uma API de backend para autenticação e dados de produtos/pedidos.
-
-Crie um arquivo .env na raiz do projeto e adicione a URL base da sua API:
-
-Plain Text
-
-
-# Exemplo: URL da API de backend
-EXPO_PUBLIC_API_URL="SUA_URL_DA_API_AQUI"
-
-
-4. Rodar a Aplicação
+3. Rodar a Aplicação
 
 Inicie o servidor de desenvolvimento do Expo:
 
