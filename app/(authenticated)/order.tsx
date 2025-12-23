@@ -2,6 +2,7 @@ import Button from "@/src/components/Button";
 import CardItem from "@/src/components/CardItem";
 import CardModal from "@/src/components/CardModal";
 import Input from "@/src/components/Input";
+import Select from "@/src/components/Select";
 import { useOrder } from "@/src/hooks/useOrder";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams } from "expo-router";
@@ -54,24 +55,16 @@ export default function Order() {
 					<Ionicons name="trash" size={25} color={"#F00000"} />
 				</TouchableOpacity>
 			</View>
-			<View className="mt-4">
-				<TouchableOpacity
-					onPress={() => handleOpenModal("category")}
-					className="bg-[#101026]  rounded-lg h-14 justify-between  items-center   flex flex-row px-4"
-				>
-					<Text className="text-[#f0f0f0]">{categorySelected?.name}</Text>
-					<Ionicons name="arrow-down" size={25} color={"#f0f0f0"} />
-				</TouchableOpacity>
-			</View>
-			<View className="mt-4">
-				<TouchableOpacity
-					onPress={() => handleOpenModal("product")}
-					className="bg-[#101026]  rounded-lg h-14 justify-between  items-center   flex flex-row px-4"
-				>
-					<Text className="text-[#f0f0f0]">{productSelected?.name}</Text>
-					<Ionicons name="arrow-down" size={25} color={"#f0f0f0"} />
-				</TouchableOpacity>
-			</View>
+			<Select
+				type="category"
+				title={categorySelected?.name ?? "Selecione a categoria"}
+				onOpen={handleOpenModal}
+			/>
+			<Select
+				type="product"
+				title={productSelected?.name ?? "Selecione o produto"}
+				onOpen={handleOpenModal}
+			/>
 			<View className="mt-4 flex flex-row justify-center  w-full items-center h-14">
 				<Text className="flex-1 text-xl font-bold text-white ">Quantidade</Text>
 				<View className="flex-1 items-end">
