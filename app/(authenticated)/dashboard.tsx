@@ -1,12 +1,9 @@
-import { OrderProps } from "@/src/@types";
 import Button from "@/src/components/Button";
 import Input from "@/src/components/Input";
 import { useAuth } from "@/src/contexts/AuthProvider";
-import { api } from "@/src/services/api";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useOrder } from "@/src/hooks/useOrder";
+import { useLocalSearchParams } from "expo-router";
 import {
-	Alert,
 	KeyboardAvoidingView,
 	ScrollView,
 	Text,
@@ -15,38 +12,13 @@ import {
 } from "react-native";
 
 export default function Dashboard() {
-	const router = useRouter();
+	const { order_id } = useLocalSearchParams<{
+		order_id: string;
+	}>();
+	const { handleOpenOrder, loading, setTableInput, tableInput } = useOrder({
+		order_id,
+	});
 	const { logOut } = useAuth();
-	const [tableNumber, setTableNumber] = useState("");
-	const [loading, setLoading] = useState(false);
-	async function handleOpenOrder() {
-		if (!tableNumber.trim()) {
-			Alert.alert("Atenção!", "Necessario preencher o numero da mesa");
-			return;
-		}
-		const table = parseInt(tableNumber);
-		if (isNaN(table) || table <= 0) {
-			Alert.alert("Atenção!", "Necessario preencher o numero valido");
-			return;
-		}
-		try {
-			setLoading(true);
-			const response = await api.post<OrderProps>("/add/order", {
-				table: table,
-			});
-			router.push({
-				pathname: "/(authenticated)/order",
-				params: {
-					table: response.data.table.toString(),
-					order_id: response.data.id,
-				},
-			});
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setLoading(false);
-		}
-	}
 	return (
 		<KeyboardAvoidingView className="bg-[#1d1d2e]  flex-1  " behavior="padding">
 			<ScrollView
@@ -77,8 +49,8 @@ export default function Dashboard() {
 					<Input
 						placeholder="Numero da mesa"
 						keyboardType="numeric"
-						value={tableNumber}
-						onChangeText={setTableNumber}
+						value={tableInput}
+						onChangeText={setTableInput}
 					/>
 					<Button
 						title="Abrir mesa"

@@ -1,43 +1,17 @@
 import Button from "@/src/components/Button";
-import { api } from "@/src/services/api";
+import { useOrder } from "@/src/hooks/useOrder";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 
-export default function StartOrder() {
+export default function SendOrder() {
 	const { table, order_id } = useLocalSearchParams<{
 		table: string;
 		order_id: string;
 	}>();
+	const { handleSendOrder, loading } = useOrder({ table, order_id });
 	const router = useRouter();
-	const [loading, setLoading] = useState<boolean>(false);
-	async function handleStartOrder() {
-		if (!order_id) {
-			Toast.show({
-				type: "error",
-				text1: "Pedido não encontrado.",
-			});
-			router.push("/(authenticated)/dashboard");
-			return;
-		}
-		try {
-			setLoading(true);
-			await api.post(`/order/${order_id}/startOrder`);
-			Toast.show({ type: "success", text1: "Pedido enviado com sucesso." });
-			router.push("/(authenticated)/dashboard");
-		} catch (error) {
-			console.log(error);
-			Toast.show({
-				type: "error",
-				text1: "Não foi possivel iniciar o pedido.",
-			});
-		} finally {
-			setLoading(false);
-		}
-	}
 	return (
 		<SafeAreaView className="bg-[#1d1d2e] flex-1 ">
 			<View className="flex-1 p-4">
@@ -56,7 +30,7 @@ export default function StartOrder() {
 					</Text>
 					<Button
 						title="Enviar"
-						onPress={handleStartOrder}
+						onPress={handleSendOrder}
 						disabled={loading}
 						loading={loading}
 					/>
