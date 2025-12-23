@@ -8,7 +8,6 @@ import {
 	KeyboardAvoidingView,
 	ScrollView,
 	Text,
-	TextInput,
 	View,
 } from "react-native";
 
@@ -50,9 +49,7 @@ export default function Login() {
 					<Text className="text-4xl flex italic font-bold  text-center w-4/5  text-white  ">
 						Pizzaria <Text className="text-red-600">Gomes</Text>
 					</Text>
-					<TextInput
-						className="bg-[#101026] w-4/5 px-5  border-zinc-700/70 border text-white  rounded-lg h-14"
-						placeholderTextColor={"#f0f0f0aa"}
+					<Input
 						placeholder="Digite seu email"
 						value={email}
 						onChangeText={setEmail}

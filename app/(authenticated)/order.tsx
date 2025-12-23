@@ -15,6 +15,7 @@ import {
 	View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function Order() {
 	const { table, order_id } = useLocalSearchParams<{
@@ -58,12 +59,30 @@ export default function Order() {
 			<Select
 				type="category"
 				title={categorySelected?.name ?? "Selecione a categoria"}
-				onOpen={handleOpenModal}
+				onOpen={() => {
+					if (!categorySelected?.name) {
+						Toast.show({
+							type: "error",
+							text1: "Não possui nenhuma categoria cadastrada",
+						});
+						return;
+					}
+					handleOpenModal("product");
+				}}
 			/>
 			<Select
 				type="product"
 				title={productSelected?.name ?? "Selecione o produto"}
-				onOpen={handleOpenModal}
+				onOpen={() => {
+					if (!productSelected?.name) {
+						Toast.show({
+							type: "error",
+							text1: "Não possui nenhum produto cadastrado",
+						});
+						return;
+					}
+					handleOpenModal("product");
+				}}
 			/>
 			<View className="mt-4 flex flex-row justify-center  w-full items-center h-14">
 				<Text className="flex-1 text-xl font-bold text-white ">Quantidade</Text>
